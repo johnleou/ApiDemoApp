@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiDemo.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ApiDemo.Controllers
 {
     [ApiController]
-    [Route("[controller]")]    
+    [Route("api/[controller]")]    
     public class UsersController : ControllerBase
     {
 
@@ -18,34 +19,38 @@ namespace ApiDemo.Controllers
 
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string GetUsers()
         {
-            return new string[] { "value1", "value2" };
+            return "Reading all the users";
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("{name}/{age}")]
-        public string Get([FromHeader(Name = "name")] string name, int age)
+        [HttpGet("{id}")]
+        public string GetUserById(int id)
         {
-            return $"age = {age} name = {name}";
+            return $"Reading user with id = {id}";
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public string CreateUser([FromBody]UserModel user)
         {
+            return $"Creating a user with UserId: {user.UserId} and Age: {user.Age}";
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public string UpdateUser(int id)
         {
+            return $"Updating shirt: {id}";
         }
 
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public string DeleteUser(int id)
         {
+            return $"Delete User with id = {id}";
         }
+        
     }
 }
